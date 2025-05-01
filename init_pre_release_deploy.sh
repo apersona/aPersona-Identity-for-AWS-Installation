@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #project code repo
-export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
-export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
+export APERSONAIDP_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-End-User-Services
+export APERSONAADM_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-Admin-Portal
 
 REPO_BASE=https://github.com/apersona/
 
