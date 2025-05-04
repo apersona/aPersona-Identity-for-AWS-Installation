@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#project code repo
-export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
-export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
-
 REPO_BASE=https://github.com/apersona/
 
 APERSONAIDP_LOCAL_NAME=aPersona-Identity-for-AWS-End-User-Services
@@ -38,7 +34,7 @@ cd $APERSONAIDP_LOCAL_NAME
 git pull
 cp ./config.sh ../
 cp ./uninstall.sh ../
-cp ./update_beta.sh ../update.sh
+cp ./$UPDATE_SCRIPT_NAME ../update.sh
 cd ..
 cd $APERSONAADM_LOCAL_NAME
 git pull
