@@ -1,5 +1,6 @@
 #!/bin/bash
 
+<<<<<<<< HEAD:run_deploy_steps.sh
 REPO_BASE=https://github.com/apersona/
 
 APERSONAIDP_LOCAL_NAME=aPersona-Identity-for-AWS-End-User-Services
@@ -38,3 +39,13 @@ cp ./$UPDATE_SCRIPT_NAME ../update.sh
 cd ..
 cd $APERSONAADM_LOCAL_NAME
 git pull
+========
+#project code repo
+export APERSONAIDP_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-End-User-Services
+export APERSONAADM_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-Admin-Portal
+export UPDATE_SCRIPT_NAME="update_pre-release"
+
+echo "About to run deploy steps with APERSONAIDP_REPO_NAME:$APERSONAIDP_REPO_NAME"
+bash run_deploy_steps.sh
+echo "Completed running the deployment steps"
+>>>>>>>> 604e4a4 (Deleting init_deploy script from pre-release branch, added init_deploy deploy script to .gitignore):init_pre_release_deploy.sh
