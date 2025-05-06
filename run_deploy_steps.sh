@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "New change for version xx"
+echo "New change for version yy"
 REPO_BASE=https://github.com/apersona/
 
 APERSONAIDP_LOCAL_NAME=aPersona-Identity-for-AWS-End-User-Services
