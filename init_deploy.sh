@@ -3,7 +3,7 @@
 #project code repo
 export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
 export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
-export UPDATE_SCRIPT_NAME="update.sh"
+export UPDATE_SCRIPT_NAME="update_latest.sh"
 
 echo "About to run deploy steps with APERSONAIDP_REPO_NAME:$APERSONAIDP_REPO_NAME"
 bash run_deploy_steps.sh
