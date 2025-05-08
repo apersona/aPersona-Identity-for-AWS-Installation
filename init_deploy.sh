@@ -1,8 +1,5 @@
 #!/bin/bash
 
-deploy_env="$1"
-echo "About to run deployment script for env: $deploy_env"
-
 export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
 export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
 export UPDATE_SCRIPT_NAME="update_latest.sh"
@@ -41,7 +38,7 @@ cd $APERSONAIDP_LOCAL_NAME
 git pull
 cp ./config.sh ../
 cp ./uninstall.sh ../
-cp ./$UPDATE_SCRIPT_NAME ../update.sh
+cp ./$UPDATE_SCRIPT_NAME ../update_prod.sh
 cd ..
 cd $APERSONAADM_LOCAL_NAME
 git pull
