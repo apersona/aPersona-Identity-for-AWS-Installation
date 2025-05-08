@@ -1,10 +1,65 @@
 #!/bin/bash
 
-#project code repo
-export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
-export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
-export UPDATE_SCRIPT_NAME="update_latest.sh"
+deploy_env="$1"
+echo "About to run deployment script for env: $deploy_env"
 
-echo "About to run deploy steps with APERSONAIDP_REPO_NAME:$APERSONAIDP_REPO_NAME"
-bash run_deploy_steps.sh
-echo "Completed running the deployment steps"
+if [[ "$deploy_env" == "PROD" ]]; then
+  export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
+  export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
+  export UPDATE_SCRIPT_NAME="update_latest.sh"
+
+elif [[ "$deploy_env" == "PRE-RELEASE" ]]; then
+  read -p "You are about to install the PRE-RELEASE version of aPersona Identity. This version is for testing upcoming features and capabilities only, and should NOT be used in Production. Do you want to continue (y/n)? " confirm
+  if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+    echo "Deployment from PRE-RELEASE branch aborted by user."
+    exit 1
+  fi
+  export APERSONAIDP_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-End-User-Services
+  export APERSONAADM_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-Admin-Portal
+  export UPDATE_SCRIPT_NAME="update_pre-release.sh"
+
+else
+  echo "Invalid argument passed to deploy script: '$deploy_env', please select 'PROD' or 'PRE-RELEASE' for deployment."
+  exit 1
+fi
+
+REPO_BASE=https://github.com/apersona/
+
+APERSONAIDP_LOCAL_NAME=aPersona-Identity-for-AWS-End-User-Services
+APERSONAADM_LOCAL_NAME=aPersona-Identity-for-AWS-Admin-Portal
+
+#install NODE NPM GIT
+NVM_VER=v0.39.7
+NPM_VER=11.0.0
+
+rm -rf .nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VER/install.sh | bash
+source ~/.bashrc
+echo "install nvm "$NVM_VER
+nvm install --lts >/dev/null
+
+ #install git
+echo "install git"
+sudo yum update -y >/dev/null
+sudo yum install git -y >/dev/null
+
+ #update npm
+echo "install npm v"$NPM_VER
+npm install -g npm@$NPM_VER >/dev/null
+npm install -g aws-cdk >/dev/null
+
+#download code repo
+echo "clone the repo $REPO_BASE$APERSONAIDP_REPO_NAME"
+git clone $REPO_BASE$APERSONAIDP_REPO_NAME $APERSONAIDP_LOCAL_NAME
+echo "clone the repo $REPO_BASE$APERSONAADM_REPO_NAME"
+git clone $REPO_BASE$APERSONAADM_REPO_NAME $APERSONAADM_LOCAL_NAME
+cd $APERSONAIDP_LOCAL_NAME
+git pull
+cp ./config.sh ../
+cp ./uninstall.sh ../
+cp ./$UPDATE_SCRIPT_NAME ../update.sh
+cd ..
+cd $APERSONAADM_LOCAL_NAME
+git pull
+
+echo "Completed running the deployment steps for $deploy_env env."
