@@ -3,25 +3,9 @@
 deploy_env="$1"
 echo "About to run deployment script for env: $deploy_env"
 
-if [[ "$deploy_env" == "PROD" ]]; then
-  export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
-  export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
-  export UPDATE_SCRIPT_NAME="update_latest.sh"
-
-elif [[ "$deploy_env" == "PRE-RELEASE" ]]; then
-  read -p "You are about to install the PRE-RELEASE version of aPersona Identity. This version is for testing upcoming features and capabilities only, and should NOT be used in Production. Do you want to continue (y/n)? " confirm
-  if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
-    echo "Deployment from PRE-RELEASE branch aborted by user."
-    exit 1
-  fi
-  export APERSONAIDP_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-End-User-Services
-  export APERSONAADM_REPO_NAME=Pre-Release-aPersona-Identity-for-AWS-Admin-Portal
-  export UPDATE_SCRIPT_NAME="update_pre-release.sh"
-
-else
-  echo "Invalid argument passed to deploy script: '$deploy_env', please select 'PROD' or 'PRE-RELEASE' for deployment."
-  exit 1
-fi
+export APERSONAIDP_REPO_NAME=aPersona-Identity-for-AWS-End-User-Services
+export APERSONAADM_REPO_NAME=aPersona-Identity-for-AWS-Admin-Portal
+export UPDATE_SCRIPT_NAME="update_latest.sh"
 
 REPO_BASE=https://github.com/apersona/
 
