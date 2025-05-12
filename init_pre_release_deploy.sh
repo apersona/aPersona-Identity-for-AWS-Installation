@@ -39,10 +39,12 @@ echo "clone the repo $REPO_BASE$APERSONAADM_REPO_NAME"
 git clone $REPO_BASE$APERSONAADM_REPO_NAME $APERSONAADM_LOCAL_NAME
 cd $APERSONAIDP_LOCAL_NAME
 git pull
+git checkout pre-release
 cp ./config.sh ../
 cp ./uninstall.sh ../
 cp ./$UPDATE_SCRIPT_NAME ../update_pre_release.sh
 cd ..
 cd $APERSONAADM_LOCAL_NAME
 git pull
+git checkout pre-release
 echo "Completed running the deployment steps"
